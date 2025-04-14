@@ -27,6 +27,7 @@ export const getMovieDetails = async (movieId) => {
     }
 };
 
+
 export const getTrailler = async (movieId,isMovie) => {
     try {
         let response = null;

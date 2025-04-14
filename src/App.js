@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Watch from './pages/Watch';
+import Watchtv from './pages/Watchtv';
 
 function App() {
   return (
@@ -10,7 +11,8 @@ function App() {
     <Navbar />
     <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movie/:id" element={<Watch />} />
+        <Route path="/watch/:id" element={<Watch />} />
+        <Route path="/watchtv/:id/:s/:e" element={<Watchtv />} />
     </Routes>
   </Router>
   );

@@ -1,26 +1,27 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getMovieDetails , getMovies} from "../services/api";
-import MovieCard from "../components/MovieCard";
+import { getSeriesDetails , getSeries} from "../services/api";
+import TvShowsCard from "../components/TvShowCard";
+import VideoEmbed from "../components/Player";
 
-const Watch = () => {
-    const { id } = useParams(); 
-    const [movie, setMovie] = useState(null);
+const Watchtv = () => {
+    const { id ,e,s} = useParams(); 
+    const [Series, setSeries] = useState(null);
     const [loading, setLoading] = useState(true);  // Loading state
     const [error, setError] = useState(null);      // Error state
-    const [movies, setMovies] = useState([]);
+    const [series, setSeriess] = useState([]);
 
     useEffect(() => {
         const fetchMovie = async () => {
             try {
                 setLoading(true);  // Set loading state true
-                const Movie = await getMovieDetails(id);
-                const data = await getMovies();
-                setMovies(data.results);
-                if (Movie) {
-                    setMovie(Movie);
+                const Series = await getSeriesDetails(id);
+                const data = await getSeries();
+                setSeriess(data.results);
+                if (Series) {
+                    setSeries(Series);
                 } else {
-                    setError("Movie not found!");
+                    setError("Series not found!");
                 }
                 setLoading(false);
             } catch (error) {
@@ -38,25 +39,18 @@ const Watch = () => {
 
     return (
         <>
-        <div className="watch-container">
-            <h1 className="movie-title">{movie.title}</h1>
+        <div className="watchtv-container">
+            <h1 className="movie-title">{Series.name}</h1>
             <div className="video-wrapper">
-                <iframe
-                    src={`https://vidsrc.me/embed/movie?tmdb=${id}`}
-                    title={movie.title}
-                    frameBorder="0" 
-                    referrerPolicy="origin" 
-                    width="100%" // Ensures full width for responsiveness
-                    height="500" // Set a specific height (can be adjusted)
-                ></iframe>
+            <VideoEmbed imdbId={id} episode={e} season={s} />
             </div>
         </div>
         <div className="movies-container">
             <h1>Popular Movies</h1>
             <div className="movies-grid">
-            {movies.map((movie) =>
-                movie.id !== id ? (
-                    <MovieCard key={movie.id} movie={movie} />
+            {series.map((serie) =>
+                serie.id !== id ? (
+                    <TvShowsCard key={serie.id} tvShow={serie} />
                 ) : null
                 )}
             </div>
@@ -65,4 +59,4 @@ const Watch = () => {
     );
 };
 
-export default Watch;
+export default Watchtv;

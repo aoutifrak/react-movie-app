@@ -1,6 +1,7 @@
 // import { getTrailler } from "../services/api";
 import { useEffect,useState } from "react";
 import { getTrailler } from "../services/api";
+import { Link } from "react-router-dom";
 
 const TvShowsCard = ({tvShow}) =>{
 
@@ -32,6 +33,7 @@ const TvShowsCard = ({tvShow}) =>{
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         >
+        <Link to={`/watchtv/${tvShow.id}/1/1`}>
             {serieTrailler && isHovered ? (
                 <iframe
                     src={`https://www.youtube.com/embed/${serieTrailler}?autoplay=1&mute=1`}
@@ -46,8 +48,10 @@ const TvShowsCard = ({tvShow}) =>{
                     className="w-full h-64 object-cover rounded-lg"
                 />
             )}
+            <h2 className="text-white text-lg font-semibold mt-2">{tvShow.name}</h2>
             <p className="text-gray-400 text-sm">⭐ {tvShow.vote_average} / 10</p>
             <br></br>
+        </Link>
         </div>
     );
 };

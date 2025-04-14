@@ -30,7 +30,7 @@ const MovieCard = ({ movie }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Link to={`/movie/${movie.id}`}>
+      <Link to={`/watch/${movie.id}`}>
       {isHovered && movieTrailer ? (
         <iframe
           src={`https://www.youtube.com/embed/${movieTrailer}?autoplay=1&mute=1`}
